@@ -1,26 +1,27 @@
 <?php
 header('Content-Type: application/json');
-include 'database_connection.php';
+
+include 'db.php';
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die(json_encode(array('success' => false, 'message' => 'Database connection failed: ' . $conn->connect_error)));
+}
 
 $data = json_decode(file_get_contents('php://input'), true);
+$scoreID = $data['scoreID'];
 
-if (isset($data['scoreID'])) {
-    $scoreID = $data['scoreID'];
+$sql = "DELETE FROM scores WHERE ScoreID = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $scoreID);
 
-    try {
-        $sql = "DELETE FROM Scores WHERE ScoreID = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $scoreID);
-
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true]);
-        } else {
-            throw new Exception("Error executing query");
-        }
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-    }
+if ($stmt->execute()) {
+    echo json_encode(array('success' => true));
 } else {
-    echo json_encode(['success' => false, 'error' => 'Invalid input']);
+    echo json_encode(array('success' => false, 'message' => 'Error deleting score'));
 }
+
+$stmt->close();
+$conn->close();
 ?>

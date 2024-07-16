@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    M.FormSelect.init(elems);
+ 
 
     var dateElems = document.querySelectorAll('.datepicker');
     M.Datepicker.init(dateElems, {

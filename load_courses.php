@@ -1,4 +1,5 @@
 <?php
+// load Courses
 $host = 'localhost:3308';
 $db = 'wexamos';
 $user = 'root';

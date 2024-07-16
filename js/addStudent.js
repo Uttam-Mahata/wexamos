@@ -1,3 +1,42 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
+
+    var dateElems = document.querySelectorAll('.datepicker');
+    M.Datepicker.init(dateElems, {
+        format: 'yyyy-mm-dd',
+        onSelect: function(date) {
+            document.getElementById('dateOfBirth').value = formatDate(date);
+        }
+    });
+
+    loadCourses();
+});
+
+function formatDate(date) {
+    let day = String(date.getDate()).padStart(2, '0');
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+}
+
+function loadCourses() {
+    fetch('load_courses.php')
+        .then(response => response.json())
+        .then(data => {
+            const courseSelect = document.getElementById('courseSelect');
+            courseSelect.innerHTML = '<option value="" disabled selected>Select Course</option>';
+            data.courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.CourseID;
+                option.textContent = course.CourseName;
+                courseSelect.appendChild(option);
+            });
+            M.FormSelect.init(courseSelect);
+        })
+        .catch(error => console.error('Error loading courses:', error));
+}
+
 function addStudent() {
     const studentName = document.getElementById('studentName').value;
     const emailID = document.getElementById('emailID').value;
@@ -11,8 +50,7 @@ function addStudent() {
     const age = today.getFullYear() - dob.getFullYear();
     const monthDiff = today.getMonth() - dob.getMonth();
 
-    // Calculate if the student is at least 12 years old
-    const isValidAge = age > minAge || (age === minAge && monthDiff >= 0 && today.getDate() >= dob.getDate());
+    const isValidAge = age > minAge || (age === minAge && (monthDiff > 0 || (monthDiff === 0 && today.getDate() >= dob.getDate())));
 
     if (isNaN(dob.getTime()) || dob > today || !isValidAge) {
         M.toast({html: 'Invalid date of birth. Student should be at least 12 years old.', classes: 'red'});
@@ -48,28 +86,3 @@ function addStudent() {
         M.toast({html: 'Please fill out all fields.', classes: 'red'});
     }
 }
-
-// Load courses into the course select dropdown
-function loadCourses() {
-    fetch('load_courses.php')
-    .then(response => response.json())
-    .then(data => {
-        const courseSelect = document.getElementById('courseSelect');
-        courseSelect.innerHTML = '<option value="" disabled selected>Select Course</option>';
-        data.courses.forEach(course => {
-            const option = document.createElement('option');
-            option.value = course.CourseID;
-            option.textContent = course.CourseName;
-            courseSelect.appendChild(option);
-        });
-        M.FormSelect.init(courseSelect);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-// Call loadCourses when the page is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    loadCourses();
-});

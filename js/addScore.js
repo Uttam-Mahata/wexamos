@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadCourses();
-    loadStudents();
+    // Remove this line: loadStudents();
 });
 
 function loadCourses() {
@@ -65,8 +65,8 @@ function loadExams(subjectID, examSelectID) {
         .catch(error => console.error('Error:', error));
 }
 
-function loadStudents() {
-    fetch('load_students.php')
+function loadStudents(courseID) {
+    fetch(`loadStudents.php?courseID=${courseID}`)
         .then(response => response.json())
         .then(data => {
             const studentSelect = document.getElementById('studentAddScore');
@@ -83,6 +83,11 @@ function loadStudents() {
         })
         .catch(error => console.error('Error:', error));
 }
+
+document.getElementById('courseAddScore').addEventListener('change', function() {
+    const courseID = this.value;
+    loadStudents(courseID);
+});
 
 function addScore() {
     const courseID = document.getElementById('courseAddScore').value;

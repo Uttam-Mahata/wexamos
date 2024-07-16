@@ -84,7 +84,7 @@ function fetchScores() {
 
     const examDate = moment(examDateRaw, 'YYYY-MM-DD').format('YYYY-MM-DD');
 
-    fetch(`get_scores.php?courseID=${courseID}&subjectID=${subjectID}&examID=${examID}&examDate=${examDate}`)
+    fetch(`load_scores.php?courseID=${courseID}&subjectID=${subjectID}&examID=${examID}&examDate=${examDate}`)
         .then(response => response.json())
         .then(data => {
             const scoreboardBody = document.getElementById('scoreboardBody');

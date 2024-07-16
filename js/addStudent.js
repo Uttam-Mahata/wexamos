@@ -1,10 +1,25 @@
 function addStudent() {
     const studentName = document.getElementById('studentName').value;
-    const fatherName = document.getElementById('fatherName').value;
+    const emailID = document.getElementById('emailID').value;
     const dateOfBirth = document.getElementById('dateOfBirth').value;
     const courseID = document.getElementById('courseSelect').value;
 
-    if (studentName && fatherName && dateOfBirth && courseID) {
+    // Date validation
+    const today = new Date();
+    const dob = new Date(dateOfBirth);
+    const minAge = 12;
+    const age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+
+    // Calculate if the student is at least 12 years old
+    const isValidAge = age > minAge || (age === minAge && monthDiff >= 0 && today.getDate() >= dob.getDate());
+
+    if (isNaN(dob.getTime()) || dob > today || !isValidAge) {
+        M.toast({html: 'Invalid date of birth. Student should be at least 12 years old.', classes: 'red'});
+        return;
+    }
+
+    if (studentName && emailID && dateOfBirth && courseID) {
         fetch('add_student.php', {
             method: 'POST',
             headers: {
@@ -12,7 +27,7 @@ function addStudent() {
             },
             body: JSON.stringify({
                 studentName: studentName,
-                fatherName: fatherName,
+                emailID: emailID,
                 dateOfBirth: dateOfBirth,
                 courseID: courseID
             })

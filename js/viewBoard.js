@@ -95,7 +95,7 @@ function fetchScores() {
 
                     <td>${score.ObtainedMarks}</td>
                     <td>${score.FullMarks}</td>
-                    <td>${score.FatherName}</td>
+                    <td>${score.EmailID}</td>
                     <td>${score.DateOfBirth}</td>
                     <td>${percentage.toFixed(2)}%</td>
 

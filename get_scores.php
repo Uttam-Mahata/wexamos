@@ -15,7 +15,7 @@ $subjectID = $_GET['subjectID'];
 $examID = $_GET['examID'];
 $examDate = $_GET['examDate'];
 
-$sql = "SELECT Students.StudentName, Students.FatherName, Students.DateOfBirth, Scores.ObtainedMarks, Scores.FullMarks
+$sql = "SELECT Students.StudentName, Students.EmailID, Students.DateOfBirth, Scores.ObtainedMarks, Scores.FullMarks
         FROM Scores
         JOIN Students ON Scores.StudentID = Students.StudentID
         JOIN Exams ON Scores.ExamID = Exams.ExamID

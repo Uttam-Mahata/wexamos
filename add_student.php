@@ -13,15 +13,15 @@ if ($conn->connect_error) {
 // Get the posted data
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['studentName'], $data['fatherName'], $data['dateOfBirth'], $data['courseID'])) {
+if (isset($data['studentName'], $data['emailID'], $data['dateOfBirth'], $data['courseID'])) {
     $studentName = $data['studentName'];
-    $fatherName = $data['fatherName'];
+    $emailID = $data['emailID'];
     $dateOfBirth = $data['dateOfBirth'];
     $courseID = $data['courseID'];
 
-    $sql = "INSERT INTO students (StudentName, FatherName, DateOfBirth, CourseID) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO students (StudentName, EmailID, DateOfBirth, CourseID) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssi", $studentName, $fatherName, $dateOfBirth, $courseID);
+    $stmt->bind_param("sssi", $studentName, $emailID, $dateOfBirth, $courseID);
 
     if ($stmt->execute()) {
         echo json_encode(array('success' => true, 'message' => 'Student added successfully'));

@@ -16,7 +16,7 @@ $examID = $data['examID'];
 
 $sql = "DELETE FROM Exams WHERE ExamID = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $examID);
+$stmt->bind_param("i", $examId);
 $success = $stmt->execute();
 
 echo json_encode(['success' => $success]);

@@ -7,7 +7,7 @@ if (isset($_GET['courseID'])) {
 
     $conn = openCon(); // Function to open a connection to the database
 
-    $sql = "SELECT SubjectID, SubjectName FROM subjects WHERE CourseID = '$courseID'";
+    $sql = "SELECT SubjectID, SubjectName FROM Subjects WHERE CourseID = '$courseID'";
     $result = $conn->query($sql);
 
     $subjects = [];

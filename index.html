@@ -40,6 +40,10 @@
         <li>
             <a href="#manageStudents" class="waves-effect" onclick="showSection('manageStudents')"><i class="material-icons">settings</i>Manage Students</a>
         </li>
+
+        <li>
+            <a herf="#manageExams" class="waves-effect" onclick="showSection('manageExams')"><i class="material-icons">settings</i>Manage Exams</a>
+        </li>
     </ul>
 
     <!-- Main Content -->
@@ -364,6 +368,85 @@
         </div>
 
 
+<!-- Manage Students -->
+<div class="section-container" id="manageStudents">
+    <div class="dashboard">
+        <h4>Manage Students</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="courseSelectUniqueID" onchange="fetchStudentsByCourse()">
+                    <option value="" disabled selected>Choose Course</option>
+                    <!-- Courses will be populated here -->
+                </select>
+                <label>Select Course</label>
+            </div>
+        </div>
+        <div class="student-table p4">
+            <table class="responsive-table highlight text-center" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Father Name</th>
+                        <th>Date of Birth</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="manageStudentBodyUniqueID">
+                    <!-- Students will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Student Modal -->
+<div id="editStudentModalUniqueID" class="modal">
+    <div class="modal-content">
+        <h4>Edit Student</h4>
+        <div class="row">
+            <form class="col s12" id="editStudentFormUniqueID">
+                <input type="hidden" id="editStudentIDUniqueID">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="editStudentNameUniqueID" type="text" class="validate" required>
+                        <label for="editStudentNameUniqueID">Student Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="editFatherNameUniqueID" type="text" class="validate" required>
+                        <label for="editFatherNameUniqueID">Father Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="editDateOfBirthUniqueID" type="date" class="validate" required>
+                        <label for="editDateOfBirthUniqueID">Date of Birth</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+                    <button type="submit" class="waves-effect waves-green btn-flat">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Student Modal -->
+<div id="deleteStudentModalUniqueID" class="modal">
+    <div class="modal-content">
+        <h4>Delete Student</h4>
+        <p>Are you sure you want to delete this student?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+        <button id="confirmDeleteUniqueID" class="waves-effect waves-red btn-flat">Delete</button>
+    </div>
+</div>
+
+
+
+
+
+
+
 
     </div>
 
@@ -414,6 +497,8 @@
     <script src="js/createSubject.js"></script>
     <script src="js/manageExams.js"></script>
     <script src="js/manageCourses.js"></script>
+    <script src="js/manageStudent.js"></script>
+    <!-- <script src="js/manageExams.js"></script> -->
 </body>
 
 </html>

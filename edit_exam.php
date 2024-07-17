@@ -1,27 +1,28 @@
 <?php
-$host = 'localhost:3308';
-$db = 'wexamos';
-$user = 'root';
-$pass = '';
+include 'db.php';
 
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$examID = $data['examID'];
-$examName = $data['examName'];
-$examDate = $data['examDate'];
+$examId = $data['id'];
+$examName = $data['name'];
+$examDate = $data['date'];
+$examSubject = $data['subject'];
 
-$sql = "UPDATE Exams SET ExamName = ?, ExamDate = ? WHERE ExamID = ?";
+$sql = "UPDATE Exams SET ExamName = ?, ExamDate = ?, SubjectID = (SELECT SubjectID FROM Subjects WHERE SubjectName = ?) WHERE ExamID = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssi", $examName, $examDate, $examID);
-$success = $stmt->execute();
+$stmt->bind_param('sssi', $examName, $examDate, $examSubject, $examId);
 
-echo json_encode(['success' => $success]);
+$response = [];
+if ($stmt->execute()) {
+    $response['success'] = true;
+} else {
+    $response['success'] = false;
+    $response['error'] = $stmt->error;
+}
+
+echo json_encode($response);
 
 $stmt->close();
 $conn->close();

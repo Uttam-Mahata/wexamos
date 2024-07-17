@@ -1,7 +1,7 @@
 <?php
 require 'db.php';
 
-$course_id = $_GET['courseID'];
+$course_id = $_GET['course_id'];
 
 $sql = "SELECT SubjectID, SubjectName FROM subjects WHERE CourseID = ?";
 $stmt = $conn->prepare($sql);
@@ -16,5 +16,5 @@ if ($result->num_rows > 0) {
     }
 }
 
-echo json_encode($subjects);
-?>    
+echo json_encode(['subjects' => $subjects]);
+?>

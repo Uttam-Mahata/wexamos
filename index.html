@@ -442,6 +442,82 @@
 </div>
 
 
+<!-- Manage Exams -->
+<div class="section-container" id="manageExams">
+    <div class="dashboard">
+        <h4>Manage Exams</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="courseSelectForExamsUniqueID" onchange="fetchExamsByCourse()">
+                    <option value="" disabled selected>Choose Course</option>
+                    <!-- Courses will be populated here -->
+                </select>
+                <label>Select Course</label>
+            </div>
+        </div>
+        <div class="exam-table p4">
+            <table class="responsive-table highlight text-center" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Exam Name</th>
+                        <th>Exam Date</th>
+                        <th>Subject Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="manageExamBodyUniqueID">
+                    <!-- Exams will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Exam Modal -->
+<div id="editExamModalUniqueID" class="modal">
+    <div class="modal-content">
+        <h4>Edit Exam</h4>
+        <div class="row">
+            <form class="col s12" id="editExamFormUniqueID">
+                <input type="hidden" id="editExamIDUniqueID">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="editExamNameUniqueID" type="text" class="validate" required>
+                        <label for="editExamNameUniqueID">Exam Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="editExamDateUniqueID" type="date" class="validate" required>
+                        <label for="editExamDateUniqueID">Exam Date</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="editExamSubjectUniqueID" type="text" class="validate" required>
+                        <label for="editExamSubjectUniqueID">Subject Name</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+                    <button type="submit" class="waves-effect waves-green btn-flat">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Exam Modal -->
+<div id="deleteExamModalUniqueID" class="modal">
+    <div class="modal-content">
+        <h4>Delete Exam</h4>
+        <p>Are you sure you want to delete this exam?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+        <button id="confirmDeleteExamUniqueID" class="waves-effect waves-red btn-flat">Delete</button>
+    </div>
+</div>
+
+
+
+
 
 
 
@@ -498,7 +574,7 @@
     <script src="js/manageExams.js"></script>
     <script src="js/manageCourses.js"></script>
     <script src="js/manageStudent.js"></script>
-    <!-- <script src="js/manageExams.js"></script> -->
+    <script src="js/manageExams.js"></script>
 </body>
 
 </html>

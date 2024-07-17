@@ -1,12 +1,11 @@
-
 <?php
 require 'db.php';
 
-$subjectId = $_GET['subjectId'];
+$subject_id = $_GET['subject_id'];
 
-$sql = "SELECT * FROM exams WHERE SubjectID = ?";
+$sql = "SELECT ExamID, ExamName, ExamDate, SubjectName FROM exams WHERE SubjectID = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $subjectId);
+$stmt->bind_param('i', $subject_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -17,5 +16,5 @@ if ($result->num_rows > 0) {
     }
 }
 
-echo json_encode($exams);
+echo json_encode(['exams' => $exams]);
 ?>
